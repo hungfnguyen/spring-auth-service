@@ -1,10 +1,14 @@
 package com.hungfnguyen.identity_service.dto.request;
 
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class UserCreationRequest {
+    @Size(min = 3, message = "Username must be at least 3 characters")
     private String userName;
+    @Size(min = 8, message  = "Password must be at least 8 characters")
     private String password;
     private String firstName;
     private String lastName;
