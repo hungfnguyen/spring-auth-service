@@ -1,5 +1,6 @@
 package com.hungfnguyen.identity_service.controller;
 
+import com.hungfnguyen.identity_service.dto.request.ApiReponse;
 import com.hungfnguyen.identity_service.dto.request.UserCreationRequest;
 import com.hungfnguyen.identity_service.dto.request.UserUpdateRequest;
 import com.hungfnguyen.identity_service.entity.User;
@@ -17,8 +18,10 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    User createUser(@RequestBody @Valid UserCreationRequest request){
-        return userService.createUser(request);
+    ApiReponse<User> createUser(@RequestBody @Valid UserCreationRequest request){
+        ApiReponse<User> apiReponse = new ApiReponse<User>();
+        apiReponse.setResult(userService.createUser(request));
+        return apiReponse;
     }
 
     @GetMapping
@@ -32,7 +35,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    User updateUser(@PathVariable("userId") String userId ,@RequestBody UserUpdateRequest request){
+    User updateUser(@PathVariable("userId") String userId ,@RequestBody @Valid UserUpdateRequest request){
         return userService.updateUser(userId, request);
     }
 
