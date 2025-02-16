@@ -1,6 +1,6 @@
 package com.hungfnguyen.identity_service.controller;
 
-import com.hungfnguyen.identity_service.dto.request.ApiReponse;
+import com.hungfnguyen.identity_service.dto.request.ApiResponse;
 import com.hungfnguyen.identity_service.dto.request.UserCreationRequest;
 import com.hungfnguyen.identity_service.dto.request.UserUpdateRequest;
 import com.hungfnguyen.identity_service.entity.User;
@@ -18,8 +18,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    ApiReponse<User> createUser(@RequestBody @Valid UserCreationRequest request){
-        ApiReponse<User> apiReponse = new ApiReponse<User>();
+    ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request){
+        ApiResponse<User> apiReponse = new ApiResponse<User>();
         apiReponse.setResult(userService.createUser(request));
         return apiReponse;
     }

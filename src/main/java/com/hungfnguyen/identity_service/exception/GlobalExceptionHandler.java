@@ -1,6 +1,6 @@
 package com.hungfnguyen.identity_service.exception;
 
-import com.hungfnguyen.identity_service.dto.request.ApiReponse;
+import com.hungfnguyen.identity_service.dto.request.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
-    ResponseEntity<ApiReponse> handlingRunTimeException(RuntimeException exception){
-        ApiReponse apiReponse = new ApiReponse();
+    ResponseEntity<ApiResponse> handlingRunTimeException(RuntimeException exception){
+        ApiResponse apiReponse = new ApiResponse();
         apiReponse.setCode(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode());
         apiReponse.setMessage(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage());
 
@@ -18,9 +18,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = AppException.class)
-    ResponseEntity<ApiReponse> handlingAppException(AppException exception){
+    ResponseEntity<ApiResponse> handlingAppException(AppException exception){
         ErrorCode errorCode = exception.getErrorCode();
-        ApiReponse apiReponse = new ApiReponse();
+        ApiResponse apiReponse = new ApiResponse();
         apiReponse.setCode(errorCode.getCode());
         apiReponse.setMessage(errorCode.getMessage());
 
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    ResponseEntity<ApiReponse> handlingValidation(MethodArgumentNotValidException exception){
+    ResponseEntity<ApiResponse> handlingValidation(MethodArgumentNotValidException exception){
         String enumKey = exception.getFieldError().getDefaultMessage();
 
         ErrorCode errorCode = ErrorCode.INVALID_KEY;
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
         } catch(IllegalArgumentException e){
 
         }
-        ApiReponse apiReponse = new ApiReponse();
+        ApiResponse apiReponse = new ApiResponse();
         apiReponse.setCode(errorCode.getCode());
         apiReponse.setMessage(errorCode.getMessage());
 
